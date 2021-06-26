@@ -1,10 +1,47 @@
-import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Modal, TextInput} from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 export default function Expenses(){
+
+    const [isVisible, setIsVisible] = useState(false); 
+
     return(
         <View style={styles.container}>
             <Text style={styles.title}>Minhas despesas</Text>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isVisible}
+            >
+                <View style={styles.modalContainer}>
+                    <Text style={styles.modalText}>Informe seus gastos</Text>
+                    <TouchableOpacity style={styles.closeModal} 
+                    onPress={() => setIsVisible(false)}>
+                        <AntDesign name="closecircle" size={24} color="#FF0000" />
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.containerInput}>
+                    <TextInput 
+                        style={styles.valor}
+                        placeholder="Digite o valor gasto"
+                        keyboardType="numeric"
+                    />
+                </View>
+
+                <View style={styles.containerDesc}>
+                    <TextInput 
+                        style={styles.valor}
+                        placeholder="Digite onde foi gasto"
+                        keyboardType="text"
+                    />
+                </View>
+
+                <TouchableOpacity style={styles.btnSave}>
+                    <Text style={styles.txtSave}>Salvar</Text>
+                </TouchableOpacity>
+            </Modal>
 
             <ScrollView style={styles.scroll}>
                 <TouchableOpacity style={styles.btnExpenses}>
@@ -28,7 +65,8 @@ export default function Expenses(){
                 </TouchableOpacity>
             </ScrollView>
 
-            <TouchableOpacity style={styles.btnAdd}>
+            <TouchableOpacity style={styles.btnAdd}
+                              onPress={() => setIsVisible(true)}>
                 <Text style={styles.addTxt}>Adicionar</Text>
             </TouchableOpacity>
         </View>
@@ -84,5 +122,63 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 34,
         fontWeight: '800'
+    },
+    modalContainer: {
+        marginTop: 300,
+        marginLeft: 5,
+        backgroundColor: '#FFFFFF',
+        width: 380,
+        height: 418,
+        borderRadius: 8,
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    modalText: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginTop: 10,
+        marginLeft: 60
+    },
+    closeModal: {
+        marginTop: 10,
+        marginLeft: 40
+    },
+    containerInput: {
+        marginTop: 39,
+        position: 'absolute',
+        top: 390,
+        left: 67,
+        backgroundColor: '#E6E6FA',
+        padding: 10,
+        width: 260,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    containerDesc: {
+        position: 'absolute',
+        top: 490,
+        left: 67,
+        backgroundColor: '#E6E6FA',
+        padding: 10,
+        width: 260,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    btnSave: {
+        position: 'absolute',
+        left: 67,
+        top: 570,
+        backgroundColor: '#836FFF',
+        width: 260,
+        padding: 10,
+        height: 40,
+        borderRadius: 8,
+        alignItems: 'center'
+    },
+    txtSave: {
+        color: '#FFFFFF',
+        fontSize: 20,
+        fontWeight: 'bold'
     }
 })
