@@ -7,7 +7,7 @@ export default function Header(){
     return(
         <View style={styles.container}>
             <View style={styles.containerHeader}>
-                <Text style={styles.title}>Total de despesas</Text>
+                <Text style={styles.title}>Total de Despesas</Text>
                 <TouchableOpacity style={styles.settings}>
                     <Ionicons name="settings-sharp" size={24} color="black" />
                 </TouchableOpacity>
