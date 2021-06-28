@@ -1,10 +1,24 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Modal, TextInput} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Modal, TextInput, KeyboardAvoidingView, Platform} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 export default function Expenses(){
 
     const [isVisible, setIsVisible] = useState(false); 
+    const [expense, setExpense] = useState();
+    const [expenseItems, setExpenseItems] = useState([]);
+
+    const handleAddExpense = () => {
+        setExpenseItems([...expenseItems, expense])
+        setExpense(null);
+    }
+
+    const deleteExpense = (index) => {
+        let itemsDelete = [...expenseItems];
+        itemsDelete.splice(index, 1);
+        setExpenseItems(itemsDelete);
+    }
+
 
     return(
         <View style={styles.container}>
@@ -15,6 +29,7 @@ export default function Expenses(){
                 transparent={true}
                 visible={isVisible}
             >
+
                 <View style={styles.modalContainer}>
                     <Text style={styles.modalText}>Informe seus gastos</Text>
                     <TouchableOpacity style={styles.closeModal} 
@@ -27,42 +42,24 @@ export default function Expenses(){
                         style={styles.valor}
                         placeholder="Digite o valor gasto"
                         keyboardType="numeric"
+                        value={expense}
+                        onChangeText={valueTxt => setExpense(valueTxt)}
                     />
                 </View>
 
-                <View style={styles.containerDesc}>
-                    <TextInput 
-                        style={styles.valor}
-                        placeholder="Digite onde foi gasto"
-                        keyboardType="text"
-                    />
-                </View>
-
-                <TouchableOpacity style={styles.btnSave}>
+                <TouchableOpacity style={styles.btnSave} onPress={() => handleAddExpense()}>
                     <Text style={styles.txtSave}>Salvar</Text>
                 </TouchableOpacity>
             </Modal>
 
             <ScrollView style={styles.scroll}>
-                <TouchableOpacity style={styles.btnExpenses}>
-                    <Text style={styles.value}>R$18,75</Text>
-                    <Text style={styles.place}>Supermercado Extra</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.btnExpenses}>
-                    <Text style={styles.value}>R$10,00</Text>
-                    <Text style={styles.place}>Estacionamento</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.btnExpenses}>
-                    <Text style={styles.value}>R$78,50</Text>
-                    <Text style={styles.place}>Restaurante</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.btnExpenses}>
-                    <Text style={styles.value}>R$235,99</Text>
-                    <Text style={styles.place}>The Last of Us II</Text>
-                </TouchableOpacity>
+                {
+                    expenseItems.map((item, index) => {
+                        return <TouchableOpacity style={styles.btnExpenses} index={index} onPress={() => deleteExpense(index)}>
+                            <Text valueTxt style={styles.value}>R${item}</Text>
+                        </TouchableOpacity>
+                    })
+                }
             </ScrollView>
 
             <TouchableOpacity style={styles.btnAdd}
@@ -91,12 +88,14 @@ const styles = StyleSheet.create({
     },
     btnExpenses: {
         backgroundColor: '#FFFFFF',
-        width: 378,
+        width: 200,
         height: 68,
         padding: 8,
         borderRadius: 8,
         paddingHorizontal: 20,
-        marginTop: 11
+        marginTop: 11,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     value: {
         fontSize: 26,
@@ -104,11 +103,10 @@ const styles = StyleSheet.create({
         color: '#3CB371'
     },
     place: {
-        marginTop: 6,
         fontSize: 16,
-        color: '#808080',
-        fontWeight: 'bold'
-    },
+        textAlign: 'center',
+        color: '#4F4F4F'
+    },  
     btnAdd: {
         width: 380,
         height: 84,
@@ -148,16 +146,6 @@ const styles = StyleSheet.create({
         marginTop: 39,
         position: 'absolute',
         top: 390,
-        left: 67,
-        backgroundColor: '#E6E6FA',
-        padding: 10,
-        width: 260,
-        borderRadius: 8,
-        alignItems: 'center',
-    },
-    containerDesc: {
-        position: 'absolute',
-        top: 490,
         left: 67,
         backgroundColor: '#E6E6FA',
         padding: 10,

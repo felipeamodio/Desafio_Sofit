@@ -7,12 +7,16 @@ export default function Header(){
     return(
         <View style={styles.container}>
             <View style={styles.containerHeader}>
-                <Text style={styles.title}>Total de Despesas</Text>
+                <Text style={styles.title}>Sofit</Text>
                 <TouchableOpacity style={styles.settings}>
                     <Ionicons name="settings-sharp" size={24} color="black" />
                 </TouchableOpacity>
             </View>
-            <Text style={styles.money}>R$ 2.472,35</Text>
+            <View style={styles.containerRule}>
+                <Text style={styles.rules}>·Clique em adicionar</Text>
+                <Text style={styles.rules}>·Adicione o valor das despesas separado por vírgula</Text>
+                <Text style={styles.rules}>·Clique sobre o valor para deletar</Text>
+            </View>
         </View>
     )
 }
@@ -29,21 +33,24 @@ const styles = StyleSheet.create({
     },
     containerHeader: {
         flexDirection: 'row',
-        marginTop: 50,
+        marginTop: 28,
     },
     settings: {
         marginLeft: 90
     },
     title: {
         color: '#000000',
-        fontSize: 23,
+        fontSize: 34,
         fontWeight: 'bold',
         marginRight: 30
     },
-    money: {
-        marginTop: 70,
-        fontSize: 30,
-        color: '#3CB371',
+    containerRule: {
+        marginTop: 39
+    },
+    rules: {
+        marginTop: 8,
+        fontSize: 14,
+        color: '#A9A9A9',
         fontWeight: 'bold'
     }
 })
