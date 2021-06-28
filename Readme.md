@@ -11,8 +11,5 @@ Será um prazer conhecê-los melhor e gostaria de dizer que tenho muito para con
 
 Obrigado e fico no aguardo de um feedback 😄
 
-<a href="{https://youtu.be/nl9BkpQ6nNs}" title="Desafio Sofit">
-    <img src="./img/sofit.png" />
-</a>
 
 
