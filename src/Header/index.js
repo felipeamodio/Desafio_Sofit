@@ -13,9 +13,8 @@ export default function Header(){
                 </TouchableOpacity>
             </View>
             <View style={styles.containerRule}>
-                <Text style={styles.rules}>·Clique em adicionar</Text>
-                <Text style={styles.rules}>·Adicione o valor das despesas separado por vírgula</Text>
-                <Text style={styles.rules}>·Clique sobre o valor para deletar</Text>
+                <Text style={styles.rules}>·Adicione o valor de suas despesas</Text>
+                <Text style={styles.rules}>·Tenha o controle sobre seus gastos</Text>
             </View>
         </View>
     )

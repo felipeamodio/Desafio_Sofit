@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, ScrollView, Modal, TextInput, KeyboardAvoidingView, Platform} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 export default function Expenses(){
 
@@ -55,9 +56,12 @@ export default function Expenses(){
             <ScrollView style={styles.scroll}>
                 {
                     expenseItems.map((item, index) => {
-                        return <TouchableOpacity style={styles.btnExpenses} index={index} onPress={() => deleteExpense(index)}>
-                            <Text valueTxt style={styles.value}>R${item}</Text>
-                        </TouchableOpacity>
+                        return <View style={styles.btnExpenses} >
+                                <Text valueTxt style={styles.value}>R${item}</Text>
+                                <TouchableOpacity style={styles.deleteBtn} index={index} onPress={() => deleteExpense(index)}>
+                                    <Entypo name="trash" size={24} color="#FF0000" />
+                                </TouchableOpacity>
+                               </View>
                     })
                 }
             </ScrollView>
@@ -88,14 +92,15 @@ const styles = StyleSheet.create({
     },
     btnExpenses: {
         backgroundColor: '#FFFFFF',
-        width: 200,
+        width: 230,
         height: 68,
         padding: 8,
         borderRadius: 8,
         paddingHorizontal: 20,
         marginTop: 11,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'space-between',
+        flexDirection: 'row'
     },
     value: {
         fontSize: 26,
